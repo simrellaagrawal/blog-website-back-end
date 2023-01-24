@@ -1,13 +1,24 @@
-const mongoose = require("mongoose");
+const router = require("express").Router();
+const Category = require("../models/Category");
 
-const CategorySchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-  },
-  { timestamps: true }
-);
-
-module.exports = mongoose.model("Category", CategorySchema);
+//CREATE
+router.post("/", async (req, res) => {
+  const newCat = new Category(req.body);
+  try {
+    const savedCat = await newCat.save();
+    res.status(200).json(savedCat);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+//GET ALL
+router.get("/", async (req, res) => {
+  const newCat = new Category(req.body);
+  try {
+    const cats = await Category.find();
+    res.status(200).json(cats);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+})
+module.exports = router;

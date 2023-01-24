@@ -2,8 +2,9 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const Post = require("../models/Post");
-//update
 
+
+//update
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id) {
     if (req.body.password) {
@@ -45,7 +46,7 @@ router.get("/:id" ,async(req,res)=>{
   try{
   const user =await User.findById(req.params.id);
   const {password, ...others}= user._doc;
-  res.status(200).json(other);
+  res.status(200).json(others);
   }
   catch(err){
     res.status(500).json(err.message);
